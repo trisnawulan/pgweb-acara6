@@ -55,7 +55,7 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header">
-                <h4>Jumlah Penduduk</h4>
+                <h4>Kondisi Jalan</h4>
             </div>
             <div class="card-body">
                 <div id="chart"></div>
@@ -91,64 +91,62 @@
 
         <script>
             var options = {
-                series: [{
-                    name: 'Jumlah Penduduk',
-                    data: [49507, 77687, 41163, 57578, 76530, 27970, 38415, 24834, 63040, 94175, 62661, 48185, 35392, 60948, 66443, 63696]
-                }],
+                series: [17, 49, 44, 657],
                 chart: {
-                    type: 'bar',
-                    height: 350
+                    height: 390,
+                    type: 'radialBar',
                 },
                 plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '55%',
-                        endingShape: 'rounded',
-                        dataLabels: {
-                            position: 'top',
+                    radialBar: {
+                        offsetY: 0,
+                        startAngle: 0,
+                        endAngle: 270,
+                        hollow: {
+                            margin: 5,
+                            size: '30%',
+                            background: 'transparent',
+                            image: undefined,
                         },
-                    },
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent']
-                },
-                xaxis: {
-                    categories: ['Jati', 'Randublatung', 'Kradenan', 'Kedungtuban', 'Cepu', 'Sambong', 'Jiken', 'Bogorejo', 'Jepon', 'Blora', 'Banjarejo', 'Tunjungan', 'Japah', 'Ngawen', 'Kunduran', 'Todanan'],
-                    title: {
-                        text: "Kecamatan"
-                    }
-                },
-                yaxis: {
-                    title: {
-                        text: 'Jiwa'
-                    }
-                },
-                fill: {
-                    opacity: 1
-                },
-                tooltip: {
-                    y: {
-                        formatter: function (val) {
-                            return + val + "Jiwa"
+                        dataLabels: {
+                            name: {
+                                show: false,
+                            },
+                            value: {
+                                show: false,
+                            }
                         }
                     }
                 },
-                dataLabels: {
-                    enabled: true,
-                    formatter: function (val) {
-                        return val;
+                colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
+                labels: ['KUD', 'KPRI', 'KOPKAR', 'Lainnya'],
+                legend: {
+                    show: true,
+                    floating: true,
+                    fontSize: '16px',
+                    position: 'left',
+                    offsetX: 160,
+                    offsetY: 15,
+                    labels: {
+                        useSeriesColors: true,
                     },
-                    offsetY: -20,
-                    style: {
-                        fontSize: '12px',
-                        colors: ["#304758"]
+                    markers: {
+                        size: 0
+                    },
+                    formatter: function (seriesName, opts) {
+                        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+                    },
+                    itemMargin: {
+                        vertical: 3
                     }
                 },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            show: false
+                        }
+                    }
+                }]
             };
 
             var chart = new ApexCharts(document.querySelector("#chart"), options);
